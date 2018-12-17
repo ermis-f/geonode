@@ -1,0 +1,14 @@
+.navbar-brand {
+    width: 253px;
+    height: 79px;
+    background: transparent url("../img/ermis_logo.png") no-repeat scroll 15px 0px;
+    background-size: 220px 78px;
+}
+
+.home .jumbotron{
+   background: #2c9c35;
+}
+
+.navbar-right{
+     margin-right: -40px;
+}

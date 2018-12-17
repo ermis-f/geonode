@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-22 17:19+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ermis/templates/site_index.html:9 ermis/templates/site_index.html.py:13
+msgid "Welcome"
+msgstr ""
+
+#: ermis/templates/site_index.html:10
+msgid ""
+"GeoNode is an open source platform for sharing geospatial data and maps."
+msgstr ""
+
+#: ermis/templates/site_index.html:11
+msgid ""
+"If you have any questions about the software or service, join our <a href="
+"\"https://groups.google.com/d/forum/geonode-users\">mailing list</a>."
+msgstr ""
+
+#: ermis/templates/site_index.html:12
+msgid "Need help?"
+msgstr ""
+
+#: ermis/templates/site_index.html:12
+msgid "Getting Started"
+msgstr ""
+
+#: ermis/templates/site_index.html:13
+msgid "at"
+msgstr "στη"
+
+#: ermis/templates/site_index.html:13
+msgid "ERMIS-F Geoportal"
+msgstr "Γεωπύλη ERMIS-F Λέσβου"
+
+#: ermis/templates/site_index.html:14
+msgid "ERMIS-F Description"
+msgstr ""
+"Το ERMIS–F αξιοποιεί γεωγραφική και άλλη πληροφορία που ήδη υπάρχει "
+"διάσπαρτη, και ελεύθερα διαθέσιμα επιστημονικά μοντέλα εκτίμησης κινδύνων "
+"και επιπτώσεων καθώς και στατιστικών προβλέψεων, για να δημιουργήσει δημόσια "
+"γνώση που θα οδηγήσει σε προφύλαξη. Περισσότερες πληροφορίες στην ιστοσελίδα "
+"του <a href=\"https://ermis-f.eu\" target=\"new\">ERMIS-F</a>"
+
+#~ msgid "Ermis-F Applications"
+#~ msgstr "Εφαρμογές Ermis-F"
+
+#~ msgid "Knowledge Base"
+#~ msgstr "Βάση Γνώσης"
+
+#~ msgid "Early Alert"
+#~ msgstr "Έγκαιρη Προειδοποίηση"
+
+#~ msgid "Upload Layer"
+#~ msgstr "Ανέβάστε Επίπεδο"
+
+#~ msgid "Upload Document"
+#~ msgstr "Ανεβάστε Έγγραφο"
+
+#~ msgid "Search for Data."
+#~ msgstr "Αναζήτηση"
+
+#~ msgid "Data"
+#~ msgstr "Δεδομένα"
