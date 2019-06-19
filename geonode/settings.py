@@ -80,7 +80,7 @@ try:
     ALLOWED_HOSTS = ast.literal_eval(os.getenv('ALLOWED_HOSTS'))
 except ValueError:
     # fallback to regular list of values separated with misc chars
-    ALLOWED_HOSTS = ['localhost', 'django', 'geonode','lesvos-ermis-floods-dev.aegean.gr'] if os.getenv('ALLOWED_HOSTS') is None \
+    ALLOWED_HOSTS = ['localhost', 'django', 'geonode','lesvos-ermis-floods.aegean.gr'] if os.getenv('ALLOWED_HOSTS') is None \
         else re.split(r' *[,|:|;] *', os.getenv('ALLOWED_HOSTS'))
 
 # AUTH_IP_WHITELIST property limits access to users/groups REST endpoints
@@ -316,7 +316,7 @@ GEONODE_CONTRIB_APPS = (
     # 'geonode.contrib.exif',
     # 'geonode.contrib.favorite',
     # 'geonode.contrib.geogig',
-     'geonode.contrib.geosites',
+    # 'geonode.contrib.geosites',
     # 'geonode.contrib.nlp',
     # 'geonode.contrib.slack',
     # 'geonode.contrib.createlayer',
@@ -570,7 +570,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 #    'oauth2_provider.backends.OAuth2Backend',
 #    'django.contrib.auth.backends.ModelBackend',
 #    'guardian.backends.ObjectPermissionBackend',
-   # 'allauth.account.auth_backends.AuthenticationBackend',
+#    'allauth.account.auth_backends.AuthenticationBackend',
 #)
 
 #OAUTH2_PROVIDER = {
@@ -587,20 +587,20 @@ import ldap
 from django_auth_ldap.config import LDAPSearch,GroupOfNamesType, PosixGroupType,NestedGroupOfNamesType
 
 AUTHENTICATION_BACKENDS = (
-#    'oauth2_provider.backends.OAuth2Backend',
+	#    'oauth2_provider.backends.OAuth2Backend',
     'django_auth_ldap.backend.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
     'guardian.backends.ObjectPermissionBackend'
  #   'allauth.account.auth_backends.AuthenticationBackend'
 )
 
-AUTH_LDAP_SERVER_URI = 'ldap://ermis-floods-dev.aegean.gr:389'
-LDAP_SEARCH_DN = 'cn=users,dc=ermis-floods-dev,dc=aegean,dc=gr'
+AUTH_LDAP_SERVER_URI = 'ldap://ermis-floods.aegean.gr:389'
+LDAP_SEARCH_DN = 'cn=users,dc=ermis-floods,dc=aegean,dc=gr'
 AUTH_LDAP_USER = '(uid=%(user)s)'
-AUTH_LDAP_BIND_DN = 'cn=admin,dc=ermis-floods-dev,dc=aegean,dc=gr'
+AUTH_LDAP_BIND_DN = 'cn=admin,dc=ermis-floods,dc=aegean,dc=gr'
 AUTH_LDAP_BIND_PASSWORD = 'Erm_F2018_Lusers'
-#AUTH_LDAP_BIND_DN = ''
-#AUTH_LDAP_BIND_PASSWORD = ''
+	#AUTH_LDAP_BIND_DN = ''
+	#AUTH_LDAP_BIND_PASSWORD = ''
 AUTH_LDAP_USER_ATTR_MAP = {
     'first_name': 'givenName','last_name':'sn','email':'Email'
 }
@@ -608,11 +608,12 @@ AUTH_LDAP_USER_SEARCH = LDAPSearch(LDAP_SEARCH_DN,
                                    ldap.SCOPE_SUBTREE, AUTH_LDAP_USER)
          
 AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
-    'ou=geonode,dc=ermis-floods-dev,dc=aegean,dc=gr',
+    'ou=geonode,dc=ermis-floods,dc=aegean,dc=gr',
     ldap.SCOPE_SUBTREE,
     '(objectClass=groupOfNames)',
 )
 AUTH_LDAP_GROUP_TYPE =  NestedGroupOfNamesType()
+
 #AUTH_LDAP_REQUIRE_GROUP = "ou=geonode,dc=ermis-floods-dev,dc=aegean,dc=gr"
 
 AUTH_LDAP_MIRROR_GROUPS=True
@@ -620,9 +621,9 @@ AUTH_LDAP_ALWAYS_UPDATE_USER=True
 AUTH_LDAP_AUTHORIZE_ALL_USERS=True
 
 AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-    "is_active": "cn=active,ou=geonode,dc=ermis-floods-dev,dc=aegean,dc=gr",
-    "is_staff": "cn=staff,ou=geonode,dc=ermis-floods-dev,dc=aegean,dc=gr",
-    "is_superuser": "cn=superuser,ou=geonode,dc=ermis-floods-dev,dc=aegean,dc=gr",
+    "is_active": "cn=active,ou=geonode,dc=ermis-floods,dc=aegean,dc=gr",
+    "is_staff": "cn=staff,ou=geonode,dc=ermis-floods,dc=aegean,dc=gr",
+    "is_superuser": "cn=superuser,ou=geonode,dc=ermis-floods,dc=aegean,dc=gr",
 }
  
 AUTH_LDAP_FIND_GROUP_PERMS = True                     
@@ -630,6 +631,8 @@ AUTH_LDAP_CONNECTION_OPTIONS = {
 ldap.OPT_DEBUG_LEVEL: 3,
 ldap.OPT_REFERRALS: 0,
 }
+
+
 
 
 #OAUTH2_PROVIDER = {

@@ -544,7 +544,8 @@ def final_step_view(req, upload_session):
         if not check_import_session_is_valid(
                 req, upload_session, import_session):
             error_msg = upload_session.import_session.tasks[0].error_message = "/upload/layer_upload_invalid.html"
-            _json_response = json_response(
+            #url = "upload/layer_upload_invalid.html"
+	    _json_response = json_response(
                 {'url': url,
                     'status': 'error',
                     'id': req.GET['id'],

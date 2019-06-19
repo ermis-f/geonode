@@ -269,7 +269,7 @@
 
                 <p><a class="btn btn-default" href="{% url "maps_browse" %}" role="button">{% trans "Explore maps" %} &raquo;</a></p>
               </div>
-              <div class="col-md-6">
+<!--              <div class="col-md-6">
                 <p><a href="{% url "document_browse" %}"><i class="fa fa-newspaper-o fa-4x"></i></a></p>
                 <h2 style="font-size:28px"><a href="{% url "document_browse" %}">{{ facets.document|default:_("No") }} {% blocktrans count counter=facets.document %}Document{% plural %}Documents{% endblocktrans %}</a></h2>
                 <p>{% trans "Geoportal allows to publish tabular and text data, manage theirs metadata and associate them with maps and layers." %}</p>
@@ -280,7 +280,7 @@
                 <h2 style="font-size:28px"><a href="{% url "profile_browse" %}">{{ facets.user|default:_("No") }} {% blocktrans count counter=facets.user %}User{% plural %}Users{% endblocktrans %}</a></h2>
                 <p>{% trans "Geoportal allows registered users to easily upload thematic layers in several formats, including shapefile and Geotiff." %}</p>
                 <p><a class="btn btn-default" href="{% url "profile_browse" %}" role="button">{% trans "See users" %} &raquo;</a></p>
-              </div>
+              </div>-->
             {% endwith %}
             </div>
           </div>
@@ -297,7 +297,7 @@
                   </div>
                 </div>
           		{% endverbatim %}
-                <p><a href="/search/">{% trans "Explore Content" %}</a></p>
+            <!--    <p><a href="/search/">{% trans "Explore Content" %}</a></p>-->
             </div>
         </div>
       </section>
