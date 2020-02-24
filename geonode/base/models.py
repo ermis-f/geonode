@@ -58,7 +58,7 @@ from agon_ratings.models import OverallRating
 
 from geonode import geoserver
 from geonode.base.enumerations import ALL_LANGUAGES, \
-    HIERARCHY_LEVELS, UPDATE_FREQUENCIES, \
+    ERMIS_LANGUAGES, HIERARCHY_LEVELS, UPDATE_FREQUENCIES, \
     DEFAULT_SUPPLEMENTAL_INFORMATION, LINK_TYPES
 from geonode.utils import bbox_to_wkt
 from geonode.utils import forward_mercator
@@ -623,8 +623,8 @@ class ResourceBase(PolymorphicModel, PermissionLevelMixin, ItemBase):
     language = models.CharField(
         _('language'),
         max_length=3,
-        choices=ALL_LANGUAGES,
-        default='eng',
+        choices=ERMIS_LANGUAGES,
+        default='gre',
         help_text=language_help_text)
 
     category = models.ForeignKey(
@@ -664,7 +664,7 @@ class ResourceBase(PolymorphicModel, PermissionLevelMixin, ItemBase):
 
     # Section 8
     data_quality_statement = models.TextField(
-        _('data quality statement'),
+        _('lineage'),
         max_length=2000,
         blank=True,
         null=True,

@@ -71,7 +71,7 @@
 							{% endif %}
 
 
-						<dt>{% trans "Owner" %}</dt>
+						<dt>{% trans "User" %}</dt>
 							<dd>{{resource.owner}}</dd>
 
 						<dt>{% trans "Point of Contact" %}</dt>
@@ -121,7 +121,7 @@
 						<dt>{% trans "Supplemental Information" %}</dt>
 							<dd>{{resource.supplemental_information}}</dd>
 
-						<dt>{% trans "Data Quality" %} </dt>
+						<dt>{% trans "Lineage" %} </dt>
 							{% if resource.data_quality_statement %}
 							<dd>{{resource.data_quality_statement}}</dd>
 							{% else %}
@@ -144,7 +144,7 @@
 						<dt>{% trans "Keywords" %}</dt>
 							<dd>{{extra_res_md.keywords}}</dd>
 
-						<dt>{% trans "Category" %}</dt>
+						<dt>{% trans "Topic Category" %}</dt>
 							<dd>{{resource.category}}</dd>
 
 						{% if resource.regions.all %}

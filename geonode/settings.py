@@ -219,7 +219,7 @@ PASSWORD_HASHERS = [
     # 'django.contrib.auth.hashers.BCryptPasswordHasher',
 ]
 
-MODELTRANSLATION_LANGUAGES = ['en', ]
+MODELTRANSLATION_LANGUAGES = ['en','el' ]
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
@@ -238,7 +238,7 @@ LOCAL_MEDIA_URL = os.getenv('LOCAL_MEDIA_URL', "/uploaded/")
 # Absolute path to the directory that holds static files like app media.
 # Example: "/home/media/media.lawrence.com/apps/"
 STATIC_ROOT = os.getenv('STATIC_ROOT',
-                        os.path.join(PROJECT_ROOT, "static_root")
+                        os.path.join("/home/geonode/ermis/ermis/", "static_root")
                         )
 
 # URL that handles the static files like app media.
@@ -271,10 +271,10 @@ LOCALE_PATHS = os.getenv('LOCALE_PATHS', _DEFAULT_LOCALE_PATHS)
 ROOT_URLCONF = os.getenv('ROOT_URLCONF', 'geonode.urls')
 
 # Login and logout urls override
-LOGIN_URL = os.getenv('LOGIN_URL', '/account/login/')
-LOGOUT_URL = os.getenv('LOGOUT_URL', '/account/logout/')
+LOGIN_URL = os.getenv('LOGIN_URL', '/account/login')
+LOGOUT_URL = os.getenv('LOGOUT_URL', '/account/logout')
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = ''
 
 GEONODE_CORE_APPS = (
     # GeoNode internal apps
@@ -397,7 +397,7 @@ INSTALLED_APPS = (
 
     # Django REST Framework
     'rest_framework',
-
+    'django_cas_ng',
     # GeoNode
     'geonode',
 ) + GEONODE_APPS
@@ -566,6 +566,9 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 # Replacement of default authentication backend in order to support
 # permissions per object.
+
+
+
 #AUTHENTICATION_BACKENDS = (
 #    'oauth2_provider.backends.OAuth2Backend',
 #    'django.contrib.auth.backends.ModelBackend',
@@ -573,66 +576,15 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 #    'allauth.account.auth_backends.AuthenticationBackend',
 #)
 
-#OAUTH2_PROVIDER = {
-#    'SCOPES': {
-#        'read': 'Read scope',
-#        'write': 'Write scope',
-#        'groups': 'Access to your groups'
-#    },
+OAUTH2_PROVIDER = {
+    'SCOPES': {
+        'read': 'Read scope',
+        'write': 'Write scope',
+        'groups': 'Access to your groups'
+    },
 
-#    'CLIENT_ID_GENERATOR_CLASS': 'oauth2_provider.generators.ClientIdGenerator',
-#}
-
-import ldap
-from django_auth_ldap.config import LDAPSearch,GroupOfNamesType, PosixGroupType,NestedGroupOfNamesType
-
-AUTHENTICATION_BACKENDS = (
-	#    'oauth2_provider.backends.OAuth2Backend',
-    'django_auth_ldap.backend.LDAPBackend',
-    'django.contrib.auth.backends.ModelBackend',
-    'guardian.backends.ObjectPermissionBackend'
- #   'allauth.account.auth_backends.AuthenticationBackend'
-)
-
-AUTH_LDAP_SERVER_URI = 'ldap://ermis-floods.aegean.gr:389'
-LDAP_SEARCH_DN = 'cn=users,dc=ermis-floods,dc=aegean,dc=gr'
-AUTH_LDAP_USER = '(uid=%(user)s)'
-AUTH_LDAP_BIND_DN = 'cn=admin,dc=ermis-floods,dc=aegean,dc=gr'
-AUTH_LDAP_BIND_PASSWORD = 'Erm_F2018_Lusers'
-	#AUTH_LDAP_BIND_DN = ''
-	#AUTH_LDAP_BIND_PASSWORD = ''
-AUTH_LDAP_USER_ATTR_MAP = {
-    'first_name': 'givenName','last_name':'sn','email':'Email'
+    'CLIENT_ID_GENERATOR_CLASS': 'oauth2_provider.generators.ClientIdGenerator',
 }
-AUTH_LDAP_USER_SEARCH = LDAPSearch(LDAP_SEARCH_DN,
-                                   ldap.SCOPE_SUBTREE, AUTH_LDAP_USER)
-         
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
-    'ou=geonode,dc=ermis-floods,dc=aegean,dc=gr',
-    ldap.SCOPE_SUBTREE,
-    '(objectClass=groupOfNames)',
-)
-AUTH_LDAP_GROUP_TYPE =  NestedGroupOfNamesType()
-
-#AUTH_LDAP_REQUIRE_GROUP = "ou=geonode,dc=ermis-floods-dev,dc=aegean,dc=gr"
-
-AUTH_LDAP_MIRROR_GROUPS=True
-AUTH_LDAP_ALWAYS_UPDATE_USER=True
-AUTH_LDAP_AUTHORIZE_ALL_USERS=True
-
-AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-    "is_active": "cn=active,ou=geonode,dc=ermis-floods,dc=aegean,dc=gr",
-    "is_staff": "cn=staff,ou=geonode,dc=ermis-floods,dc=aegean,dc=gr",
-    "is_superuser": "cn=superuser,ou=geonode,dc=ermis-floods,dc=aegean,dc=gr",
-}
- 
-AUTH_LDAP_FIND_GROUP_PERMS = True                     
-AUTH_LDAP_CONNECTION_OPTIONS = {
-ldap.OPT_DEBUG_LEVEL: 3,
-ldap.OPT_REFERRALS: 0,
-}
-
-
 
 
 #OAUTH2_PROVIDER = {
@@ -763,7 +715,7 @@ MISSING_THUMBNAIL = os.getenv(
 CACHE_TIME = int(os.getenv('CACHE_TIME', '0'))
 
 GEOSERVER_LOCATION = os.getenv(
-    'GEOSERVER_LOCATION', 'http://localhost:8080/geoserver/'
+    'GEOSERVER_LOCATION', 'http://geoportal.ermis-f.eu/geoserver/'
 )
 
 GEOSERVER_PUBLIC_LOCATION = os.getenv(
@@ -776,7 +728,7 @@ OGC_SERVER_DEFAULT_USER = os.getenv(
 )
 
 OGC_SERVER_DEFAULT_PASSWORD = os.getenv(
-    'GEOSERVER_ADMIN_PASSWORD', 'geoserver'
+    'GEOSERVER_ADMIN_PASSWORD', 'erm_F2018'
 )
 
 GEOFENCE_SECURITY_ENABLED = False if TEST and not INTEGRATION else True
@@ -1020,11 +972,12 @@ SOCIAL_ORIGINS = [{
     "label": "Twitter",
     "url": "https://twitter.com/share?url={url}&hashtags={hashtags}",
     "css_class": "tw"
-}, {
-    "label": "Google +",
-    "url": "https://plus.google.com/share?url={url}",
-    "css_class": "gp"
-}]
+}#, {
+#    "label": "Google +",
+#    "url": "https://plus.google.com/share?url={url}",
+#    "css_class": "gp"
+#}
+]
 
 # CKAN Query String Parameters names pulled from
 # http://tinyurl.com/og2jofn
@@ -1281,7 +1234,7 @@ SEARCH_FILTERS = {
     'KEYWORDS_ENABLED': True,
     'H_KEYWORDS_ENABLED': True,
     'T_KEYWORDS_ENABLED': True,
-    'DATE_ENABLED': True,
+    'DATE_ENABLED': False,
     'REGION_ENABLED': True,
 }
 
@@ -1357,6 +1310,7 @@ if ASYNC_SIGNALS:
     CELERY_RESULT_BACKEND = _BROKER_URL
 else:
     _BROKER_URL = LOCAL_SIGNALS_BROKER_URL
+ 
 
 # Note:BROKER_URL is deprecated in favour of CELERY_BROKER_URL
 CELERY_BROKER_URL = _BROKER_URL

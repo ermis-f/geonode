@@ -259,3 +259,11 @@ if settings.MONITORING_ENABLED:
     urlpatterns += [url(r'^monitoring/',
                         include('geonode.contrib.monitoring.urls',
                                 namespace='monitoring'))]
+
+
+urlpatterns +=[
+     url(r'^static_maps/cyprus.html', views.cyprus, name='cyprus'),
+     url(r'^static_maps/crete.html', views.crete, name='crete'),
+     url(r'^static_maps/vaigaio.html', views.vaigaio, name='vaigaio'),
+     url(r'^static_maps/pdf.html', views.pdf, name='pdf'),
+]

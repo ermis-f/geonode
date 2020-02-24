@@ -266,7 +266,7 @@ class RegionsSelect(forms.Select):
 class CategoryForm(forms.Form):
     category_choice_field = CategoryChoiceField(
         required=False,
-        label='*' + _('Category'),
+        label='*' + _('Topic Category'),
         empty_label=None,
         queryset=TopicCategory.objects.filter(
             is_choice=True) .extra(
@@ -318,8 +318,8 @@ class ResourceBaseForm(TranslationModelForm):
     """Base form for metadata, should be inherited by childres classes of ResourceBase"""
 
     owner = forms.ModelChoiceField(
-        empty_label="Owner",
-        label=_("Owner"),
+        empty_label="User",
+        label=_("User"),
         required=False,
         queryset=Profile.objects.exclude(
             username='AnonymousUser'),

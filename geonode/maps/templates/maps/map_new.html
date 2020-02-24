@@ -9,12 +9,16 @@
 
     <style>
         #paneltbar {
-            margin-top: 90px !important;
+         /*   margin-top: 90px !important;*/
         }
     </style>
 
     {% get_map_new %}
 	{{ block.super }}
 {% endblock %}
+
+
+{% block nav_top %}navbar-fixed-top{% endblock %}
+
 
 {% block footer %}{% endblock %}

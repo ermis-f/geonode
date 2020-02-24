@@ -88,7 +88,9 @@ class Upload(models.Model):
     def get_session(self):
         if self.session:
 	   # dec = u''.join(self.session.decode('utf-8'))
-            return pickle.loads(str(self.session))
+            #return pickle.loads(str(self.session))
+            return pickle.loads(self.session.encode('utf-8'))
+
 
     def update_from_session(self, upload_session):
         self.state = upload_session.import_session.state

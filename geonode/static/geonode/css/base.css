@@ -7448,7 +7448,7 @@ nav.filter h4 {
   font-size: 14px;
   font-weight: 300;
   padding: 10px 0;
-  text-transform: uppercase;
+/*  text-transform: uppercase;*/
   border-radius: 3px;
 }
 nav.filter h4 a {

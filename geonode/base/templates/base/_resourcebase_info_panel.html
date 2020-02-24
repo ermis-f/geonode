@@ -59,7 +59,7 @@
     {% endif %}
 
     {% if resource.category %}
-    <dt>{% trans "Category" %}</dt>
+    <dt>{% trans "Topic Category" %}</dt>
     <dd><a href="{% url "search" %}?category__identifier__in={{ resource.category.identifier }}">{{ resource.category }}</a> {% if resource.category.description %}<a href="#category-more" data-toggle="collapse" data-target=".category-more"><i class="fa fa-info-circle"></i></a>{% endif %}</dd>
       {% if resource.category.description %}
       <dd class="category-more collapse">
@@ -81,7 +81,7 @@
     {% endif %}
 
     {% if resource.owner %}
-    <dt>{% trans "Owner" %}</dt>
+    <dt>{% trans "User" %}</dt>
     <dd><a itemprop="author" href="{{ resource.owner.get_absolute_url }}">{{ resource.owner.username }}</a></dd>
     {% endif %}
 
@@ -158,7 +158,7 @@
     {% endif %}
 
     {% if resource.data_quality_statement %}
-    <dt>{% trans "Data Quality" %}</dt>
+    <dt>{% trans "Lineage" %}</dt>
     <dd>{{ resource.data_quality_statement }}</dd>
     {% endif %}
 

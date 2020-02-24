@@ -318,6 +318,10 @@ COUNTRIES = (
     ('ZWE', 'Zimbabwe'),
 )
 
+ERMIS_LANGUAGES = (
+    ('gre', 'Greek'),
+    ('eng', 'English'),
+)
 # Taken from http://www.w3.org/WAI/ER/IG/ert/iso639.htm
 ALL_LANGUAGES = (
     ('abk', 'Abkhazian'),

@@ -33,7 +33,7 @@ from django.template.response import TemplateResponse
 from geonode import get_version
 from geonode.base.templatetags.base_tags import facets
 from geonode.groups.models import GroupProfile
-
+from django.shortcuts import render
 
 class AjaxLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
@@ -157,3 +157,16 @@ def moderator_contacted(request, inactive_user=None):
         template="account/admin_approval_sent.html",
         context={"email": user.email}
     )
+
+def cyprus(request):
+    return render(request,'static_maps/cyprus.html')
+
+def crete(request):
+    return render(request,'static_maps/crete.html')
+
+def vaigaio(request):
+    return render(request,'static_maps/vaigaio.html')
+
+def pdf(request):
+    return render(request,'static_maps/pdf.html')
+

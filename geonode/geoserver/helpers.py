@@ -1590,10 +1590,26 @@ def style_update(request, url):
             style.save()
             layer = Layer.objects.get(alternate=layer_name)
             style.layer_styles.add(layer)
+        #    style,created=Style.objects.get_or_create(name=style_name)
+        #    style.sld_body=sld_body
+        #    style.sld_url=url
             style.save()
             affected_layers.append(layer)
+       #     layer=None
+       #     try:
+ #	         layer = Layer.objects.get(name=layer_name)
+  #          except BaseException:
+   #              try:
+   #                   layer = Layer.objects.get(alternate=layer_name)
+   #              except BaseException:
+   #                   pass
+   #         if layer:
+   #              style.layer_styles.add(layer)
+   #              style.save()
+   #              affected_layers.append(layer)
         elif request.method == 'PUT':  # update style in GN
             style = Style.objects.get(name=style_name)
+            #style, created = Style.objects.get_or_create(name=style_name)
             style.sld_body = sld_body
             style.sld_url = url
             if len(elm_user_style_title.text) > 0:

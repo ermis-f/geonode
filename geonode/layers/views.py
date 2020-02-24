@@ -1016,6 +1016,7 @@ def layer_metadata(
         if new_regions is not None:
             layer.regions.clear()
             layer.regions.add(*new_regions)
+            
 
         the_layer = layer_form.instance
         the_layer.save()

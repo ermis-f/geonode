@@ -399,6 +399,8 @@ def style_change_check(request, path):
     # we will suppose that a user can create a new style only if he is an
     # authenticated (we need to discuss about it)
     authorized = True
+    #logger.warn("REQ:"+request.get_full_path())
+    #logger.warn("PATH:"+path)
     if request.method == 'POST':
         # new style
         if not request.user.is_authenticated:
@@ -415,15 +417,25 @@ def style_change_check(request, path):
             # of them
             style_name = os.path.splitext(request.path)[0].split('/')[-1]
             try:
-                style = Style.objects.get(name=style_name)
-                for layer in style.layer_styles.all():
-                    if not request.user.has_perm(
+                #logger.warn(request.path)
+                #logger.warn(type(style_name))
+                layer_name=style_name[0:style_name.rfind('_')]
+                #logger.warn(layer_name)
+                layer = Layer.objects.get(name=layer_name)
+                #style = Style.objects.get(name=style_name)
+                #logger.warn(type(layer))
+                #for layer in style.layer_styles.all():
+               	#logger.warn(layer)
+                if not request.user.has_perm(
                             'change_layer_style', obj=layer):
-                        authorized = False
-            except BaseException:
+                	authorized = False
+                #logger.warn('end')
+                #logger.warn(authorized) 
+            except BaseException as e:
                 authorized = False
                 logger.warn(
-                    'There is not a style with such a name: %s.' % style_name)
+                    'There is not a style with such a name: %s.' % str(e))
+	#logger.warn(authorized)
     return authorized
 
 
@@ -467,6 +479,8 @@ def geoserver_proxy(request,
             prefix, layername, downstream_path) if layername else prefix
         return path[len(full_prefix):]
 
+    #logger.warn("1"+request.get_full_path())
+    #logger.warn("2"+proxy_path)
     path = strip_prefix(request.get_full_path(), proxy_path)
 
     access_token = None
@@ -480,6 +494,8 @@ def geoserver_proxy(request,
 
     raw_url = str(
         "".join([ogc_server_settings.LOCATION, downstream_path, path]))
+    #logger.warn("3"+downstream_path)
+    #logger.warn("4"+raw_url)
 
     if settings.DEFAULT_WORKSPACE or workspace:
         ws = (workspace or settings.DEFAULT_WORKSPACE)
@@ -488,52 +504,70 @@ def geoserver_proxy(request,
             try:
                 path = "/%s" % strip_prefix(path, "/%s:" % (ws))
             except BaseException:
+                #logger.warn("EXC")
                 pass
 
+        #logger.warn("5"+proxy_path)
         if proxy_path == '/gs/%s' % settings.DEFAULT_WORKSPACE and layername:
             import posixpath
             raw_url = urljoin(ogc_server_settings.LOCATION,
                               posixpath.join(workspace, layername, downstream_path, path))
+            #logger.warn("6"+raw_url)
 
+        #logger.warn("ws1:"+str(ws))
         if downstream_path in ('rest/styles') and len(request.body) > 0:
+            #logger.warn("ws2:"+str(ws))
             if ws:
                 # Lets try
                 # http://localhost:8080/geoserver/rest/workspaces/<ws>/styles/<style>.xml
                 _url = str("".join([ogc_server_settings.LOCATION,
                                     'rest/workspaces/', ws, '/styles',
                                     path]))
+                #logger.warn("true")
             else:
-                _url = str("".join([ogc_server_settings.LOCATION,
+            	_url = str("".join([ogc_server_settings.LOCATION,
                                     'rest/styles',
                                     path]))
+		#logger.warn("false")
             raw_url = _url
-
+            #logger.warn("7"+_url)
+    #logger.warn("MOVE")
     if downstream_path in 'ows' and (
         'rest' in path or
             re.match(r'/(w.*s).*$', path, re.IGNORECASE) or
             re.match(r'/(ows).*$', path, re.IGNORECASE)):
         _url = str("".join([ogc_server_settings.LOCATION, '', path[1:]]))
         raw_url = _url
-
+        #logger.warn("8"+_url)
+    #logger.warn("8.1"+raw_url)
     url = urlsplit(raw_url)
+    #logger.warn(url)
 
     affected_layers = None
     if request.method in ("POST", "PUT"):
         if downstream_path in ('rest/styles', 'rest/layers',
                                'rest/workspaces') and len(request.body) > 0:
+            #logger.warn("9"+request.path)
+            #logger.warn("10"+request.method)
+            #logger.warn("11"+raw_url)
+            #logger.warn("12"+downstream_path)
+            #logger.warn("13"+settings.DEFAULT_WORKSPACE)
+            #logger.warn("14"+ogc_server_settings.LOCATION)
+
             if not style_change_check(request, downstream_path):
                 return HttpResponse(
                     _(
                         "You don't have permissions to change style for this layer"),
                     content_type="text/plain",
                     status=401)
-            elif downstream_path == 'rest/styles':
+            elif downstream_path == 'rest/styles': #or request.path=='/gs/rest/workspaces/geonode/styles':
                 logger.info(
                     "[geoserver_proxy] Updating Style to ---> url %s" %
                     url.path)
                 affected_layers = style_update(request, raw_url)
 
     kwargs = {'affected_layers': affected_layers}
+    #logger.warn("REQ")
     return proxy(request, url=raw_url, response_callback=_response_callback, **kwargs)
 
 
@@ -558,7 +592,8 @@ def _response_callback(**kwargs):
         content = content\
             .replace(ogc_server_settings.LOCATION, _gn_proxy_url)\
             .replace(ogc_server_settings.PUBLIC_LOCATION, _gn_proxy_url)
-
+    #logger.warn("15"+content)
+    #logger.warn(status)
     return HttpResponse(
         content=content,
         status=status,
@@ -831,7 +866,8 @@ def get_capabilities(request, layerid=None, user=None,
                         rootdoc = etree.ElementTree(layercap)
                         format_online_resource(workspace, layername, rootdoc, namespaces)
                         service_name = rootdoc.find('.//wms:Service/wms:Name', namespaces)
-                        if service_name:
+                        #if service_name:
+                        if service_name is not None:
                             service_name.text = cap_name
                         rootdoc = rootdoc.find('.//wms:Capability/wms:Layer/wms:Layer', namespaces)
                     except Exception as e:
@@ -841,7 +877,8 @@ def get_capabilities(request, layerid=None, user=None,
                             "Error occurred creating GetCapabilities for %s: %s" %
                             (layer.typename, str(e)))
                         rootdoc = None
-                if not layercap or not rootdoc:
+                #if not layercap or not rootdoc:
+                if layercap is None or rootdoc is None:
                     # Get the required info from layer model
                     # TODO: store time dimension on DB also
                     tpl = get_template("geoserver/layer.xml")

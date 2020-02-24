@@ -10,11 +10,17 @@
 
     <style>
         #paneltbar {
-            margin-top: 90px !important;
+/*            margin-top: 90px !important;*/
+              bgcolor : #ffffff;
         }
     </style>
 
-    {% get_map_view %}
+  {% get_map_view %}
+  
 	{{ block.super }}
 {% endblock %}
+
+{% block nav_top %}navbar-fixed-top{% endblock %}
+
+
 {% block footer %}{% endblock %}
