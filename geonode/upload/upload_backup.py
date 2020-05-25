@@ -198,7 +198,6 @@ def upload(
     upload_session = UploaderSession(
         base_file=base_file,
         name=name,
-        charset=charset,
         import_session=import_session,
         layer_abstract="",
         layer_title=name,
@@ -217,7 +216,8 @@ def upload(
               time_format=None, srs=None, use_big_date=use_big_date)
 
     utils.run_import(upload_session, async=False)
-    final_step(upload_session, user, charset=charset)
+    logger.error("fdfasdfsdfasdfasdfasfas")
+    final_step(upload_session, user)
 
 
 def _get_next_id():
@@ -278,8 +278,7 @@ def save_step(user, layer, spatial_files, overwrite=True, mosaic=False,
               mosaic_time_regex=None, mosaic_time_value=None,
               time_presentation=None, time_presentation_res=None,
               time_presentation_default_value=None,
-              time_presentation_reference_value=None,
-              charset_encoding='UTF-8'):
+              time_presentation_reference_value=None):
     #logger.debug(
      #   'Uploading layer: {}, files {!r}'.format(layer, spatial_files))
     if len(spatial_files) > 1:
@@ -344,16 +343,14 @@ def save_step(user, layer, spatial_files, overwrite=True, mosaic=False,
                     files_to_upload[1:],
                     use_url=False,
                     # import_id=next_id,
-                    target_store=target_store,
-                    charset_encoding=charset_encoding
+                    target_store=target_store
                 )
             else:
                 import_session = gs_uploader.upload_files(
                     files_to_upload,
                     use_url=False,
                     # import_id=next_id,
-                    target_store=target_store,
-                    charset_encoding=charset_encoding
+                    target_store=target_store
                 )
             next_id = import_session.id if import_session else None
             if not next_id:
@@ -365,8 +362,7 @@ def save_step(user, layer, spatial_files, overwrite=True, mosaic=False,
                 use_url=False,
                 import_id=next_id,
                 mosaic=False,
-                target_store=None,
-                charset_encoding=charset_encoding
+                target_store=None
             )
         upload.import_id = import_session.id
         upload.save()
@@ -550,7 +546,7 @@ def srs_step(upload_session, source, target):
     upload_session.import_session = import_session
 
 
-def final_step(upload_session, user, charset="UTF-8"):
+def final_step(upload_session, user):
     from geonode.geoserver.helpers import get_sld_for
     import_session = upload_session.import_session
     _log('Reloading session %s to check validity', import_session.id)
@@ -569,8 +565,7 @@ def final_step(upload_session, user, charset="UTF-8"):
     # FIXME: Put this in gsconfig.py
 
     task = import_session.tasks[0]
-    task.set_charset(upload_session.charset)
-    
+
     # @todo see above in save_step, regarding computed unique name
     name = task.layer.name
 

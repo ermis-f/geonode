@@ -9,10 +9,10 @@
 <link rel="stylesheet" type="text/css" href="{% static "geoexplorer/theme/app/geoexplorer.css" %}?v={{ VERSION }}" />
 <!--[if IE]><link rel="stylesheet" type="text/css" href="{% static "geoexplorer/theme/app/ie.css" %}"/><![endif]-->
 
-<script src="https://maps.googleapis.com/maps/api/js?key={% google_api_key %}" type="text/javascript"></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key={% google_api_key %}" type="text/javascript"></script>-->
 
 <script src="{% static "geoexplorer/script/GeoExplorer.js" %}?v={{ VERSION }}" type="text/javascript"></script>
-<!-- script type="text/javascript" src="{% static "geonode/js/extjs/GeoExplorer-debug.js"></script -->
+
 
 <style>
     .olImageLoadError {
@@ -36,7 +36,14 @@ OpenLayers.Util.onImageLoadError = function() {
 };
 
 OpenLayers.Request.DEFAULT_CONFIG.headers = {
-  'X-CSRFToken': '{{ csrf_token|escapejs }}'
+     'X-CSRFToken': '{{ csrf_token|escapejs }}'
+      //'Accept':'*/*'
+     //'X-Frame-Options':'SAMEORIGIN'
+     //'Access-Control-Allow-Headers': 'Accept'
+     //'Access-Control-Allow-Orgin':'*',
+     //'Access-Control-Allow-Credentials':'true',
+     //'Access-Control-Allow-Methods':'GET, HEAD, OPTIONS, POST, PUT',
+     //'Access-Control-Allow-Headers':'Origin, Accept, Content-Type, X-Requested-With'};
 };
 
 /**

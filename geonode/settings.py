@@ -45,7 +45,7 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 # Setting debug to true makes Django serve static media and
 # present pretty error pages.
-DEBUG = strtobool(os.getenv('DEBUG', 'True'))
+DEBUG = strtobool(os.getenv('DEBUG', 'False'))
 
 # Set to True to load non-minified versions of (static) client dependencies
 # Requires to set-up Node and tools that are required for static development
@@ -557,12 +557,16 @@ MIDDLEWARE_CLASSES += ('django.middleware.security.SecurityMiddleware',)
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False
-X_FRAME_OPTIONS = 'DENY'
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
+CSRF_TRUSTED_ORIGINS = ['kb.ermis-f.eu']
+X_FRAME_OPTIONS = 'ALLOW-FROM http://kb.ermis-f.eu'
+SECURE_CONTENT_TYPE_NOSNIFF = False
+SECURE_BROWSER_XSS_FILTER = False
 SECURE_SSL_REDIRECT = False
 SECURE_HSTS_SECONDS = 3600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Replacement of default authentication backend in order to support
 # permissions per object.
@@ -774,7 +778,7 @@ UPLOADER = {
     'BACKEND': os.getenv('DEFAULT_BACKEND_UPLOADER', 'geonode.rest'),
     # 'BACKEND': 'geonode.importer',
     'OPTIONS': {
-        'TIME_ENABLED': strtobool(os.getenv('TIME_ENABLED', 'False')),
+        'TIME_ENABLED': strtobool(os.getenv('TIME_ENABLED', 'True')),
         'MOSAIC_ENABLED': strtobool(os.getenv('MOSAIC_ENABLED', 'False')),
         'GEOGIG_ENABLED': strtobool(os.getenv('GEOGIG_ENABLED', 'False')),
     },
@@ -783,7 +787,8 @@ UPLOADER = {
         'EPSG:3785',
         'EPSG:3857',
         'EPSG:32647',
-        'EPSG:32736'
+        'EPSG:32736',
+        'EPSG:2100'
     ],
     'SUPPORTED_EXT': [
         '.shp',
@@ -917,7 +922,7 @@ STAMEN_BASEMAPS = ast.literal_eval(os.environ.get('STAMEN_BASEMAPS', 'False'))
 THUNDERFOREST_BASEMAPS = ast.literal_eval(os.environ.get('THUNDERFOREST_BASEMAPS', 'False'))
 MAPBOX_ACCESS_TOKEN = os.environ.get('MAPBOX_ACCESS_TOKEN', None)
 BING_API_KEY = os.environ.get('BING_API_KEY', None)
-GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY', None)
+#GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY', None)
 
 # handle timestamps like 2017-05-30 16:04:00.719 UTC
 if django.VERSION[0] == 1 and django.VERSION[1] >= 9:
@@ -1473,7 +1478,7 @@ if USE_GEOSERVER:
 # e.g. THESAURI = [{'name':'inspire_themes', 'required':True, 'filter':True}, {'name':'inspire_concepts', 'filter':True}, ]
 # Required: (boolean, optional, default false) mandatory while editing metadata (not implemented yet)
 # Filter: (boolean, optional, default false) a filter option on that thesaurus will appear in the main search page
-# THESAURI = [{'name':'inspire_themes', 'required':False, 'filter':True}]
+#THESAURI = [{'name':'inspire_themes', 'required':False, 'filter':True}]
 THESAURI = []
 
 # use when geonode.contrib.risks is in installed apps.
@@ -1658,7 +1663,7 @@ if USE_WORLDMAP:
         organized spatially and temporally.</p>
     """
     # these are optionals
-    GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY', 'your-key-here')
+    #GOOGLE_MAPS_API_KEY = os.getenv('GOOGLE_MAPS_API_KEY', 'your-key-here')
     USE_HYPERMAP = strtobool(os.getenv('USE_HYPERMAP', 'False'))
     HYPERMAP_REGISTRY_URL = os.getenv('HYPERMAP_REGISTRY_URL', 'http://localhost:8001')
     SOLR_URL = os.getenv('SOLR_URL', 'http://localhost:8983/solr/hypermap/select/')

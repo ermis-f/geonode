@@ -161,6 +161,8 @@ def resource_urls(request):
             False
         ),
         THESAURI_FILTERS=[t['name'] for t in settings.THESAURI if t.get('filter')],
+        #THESAURI_FILTERS=[t['name'] for t in [settings.THESAURI, ] if
+        #                 t.get('filter')] if hasattr(settings, 'THESAURI') else None,
         MAP_CLIENT_USE_CROSS_ORIGIN_CREDENTIALS=getattr(
             settings, 'MAP_CLIENT_USE_CROSS_ORIGIN_CREDENTIALS', False
         ),

@@ -1,3 +1,4 @@
+{% load i18n%}
 {% load staticfiles %}
 <script type="text/javascript">
 {% autoescape off %}
@@ -52,8 +53,8 @@
     // done button tooltip variables
     var tooltipShown = false;
     var gotIt = false;
-    var tooltipContent =  'All fields declared mandatory by the schema are completed, you can continue editing the optional fields or click on "Done" to save your changes and close this page. '
-      + '<a id="close-popover-done" data-toggle="clickover" class="btn btn-small btn-primary pull-right">Got it</a><br/>';
+    var tooltipContent =  {% trans "'All fields declared mandatory by the schema are completed, you can continue editing the optional fields or click on Done to save your changes and close this page.'" %}
+      + '<a id="close-popover-done" data-toggle="clickover" class="btn btn-small btn-primary pull-right">OK</a><br/>';
     $('.metadata-edit-done').popover({
         placement: 'left',
         html: true,
@@ -245,7 +246,7 @@
           try {
             idx = $('#id_resource-restriction_code_type')[0].selectedIndex;
             value = $('#id_resource-restriction_code_type')[0].options[idx].text;
-            if(value === "otherRestrictions") {
+            if(value === "otherRestrictions" || value==="άλλοι περιορισμοί") {
                 otherRestrictions = true;
             }
           } catch (err) {

@@ -319,8 +319,8 @@ COUNTRIES = (
 )
 
 ERMIS_LANGUAGES = (
-    ('gre', 'Greek'),
-    ('eng', 'English'),
+    ('gre', _('Greek')),
+    ('eng', _('English')),
 )
 # Taken from http://www.w3.org/WAI/ER/IG/ert/iso639.htm
 ALL_LANGUAGES = (
@@ -455,15 +455,15 @@ CHARSETS = (('', 'None/Unknown'),
             ('ISO-8859-13', 'Latin13/ISO-8859-13'),
             ('ISO-8859-14', 'Latin14/ISO-8859-14'),
             ('ISO8859-15', 'Latin15/ISO-8859-15'),
-            ('Big5', 'BIG5'),
-            ('EUC-JP', 'EUC-JP'),
-            ('EUC-KR', 'EUC-KR'),
-            ('GBK', 'GBK'),
-            ('GB18030', 'GB18030'),
-            ('Shift_JIS', 'Shift_JIS'),
-            ('KOI8-R', 'KOI8-R'),
-            ('KOI8-U', 'KOI8-U'),
-            ('cp874', 'Windows CP874'),
+           # ('Big5', 'BIG5'),
+           #('EUC-JP', 'EUC-JP'),
+           # ('EUC-KR', 'EUC-KR'),
+           # ('GBK', 'GBK'),
+           # ('GB18030', 'GB18030'),
+           # ('Shift_JIS', 'Shift_JIS'),
+           # ('KOI8-R', 'KOI8-R'),
+           # ('KOI8-U', 'KOI8-U'),
+           # ('cp874', 'Windows CP874'),
             ('windows-1250', 'Windows CP1250'),
             ('windows-1251', 'Windows CP1251'),
             ('windows-1252', 'Windows CP1252'),

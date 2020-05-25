@@ -912,6 +912,7 @@ def layer_metadata(
         tkeywords_form = TKeywordForm(
             request.POST,
             prefix="tkeywords")
+            #initial={'tkeywords': request.POST.getlist('tkeywords-tkeywords')})
     else:
         layer_form = LayerForm(instance=layer, prefix="resource")
         attribute_form = layer_attribute_set(
@@ -928,27 +929,29 @@ def layer_metadata(
         lang = 'en'  # TODO: use user's language
         if layer_tkeywords and len(layer_tkeywords) > 0:
             tkeywords_ids = layer_tkeywords.values_list('id', flat=True)
-            if hasattr(settings, 'THESAURI'):
+            if hasattr(settings, 'THESAURI') and settings.THESAURI:
+                #el=settings.THESAURI
                 for el in settings.THESAURI:
-                    thesaurus_name = el['name']
-                    try:
-                        t = Thesaurus.objects.get(identifier=thesaurus_name)
-                        for tk in t.thesaurus.filter(pk__in=tkeywords_ids):
-                            tkl = tk.keyword.filter(lang=lang)
-                            if len(tkl) > 0:
-                                tkl_ids = ",".join(
-                                    map(str, tkl.values_list('id', flat=True)))
-                                tkeywords_list += "," + \
-                                    tkl_ids if len(
-                                        tkeywords_list) > 0 else tkl_ids
-                    except BaseException:
-                        tb = traceback.format_exc()
-                        logger.error(tb)
+                	thesaurus_name = el['name']
+                	try:
+                        	t = Thesaurus.objects.get(identifier=thesaurus_name)
+                        	for tk in t.thesaurus.filter(pk__in=tkeywords_ids):
+                            		tkl = tk.keyword.filter(lang=lang)
+                            		if len(tkl) > 0:
+                                		tkl_ids = ",".join(
+                                    			map(str, tkl.values_list('id', flat=True)))
+                                		tkeywords_list += "," + \
+                                    			tkl_ids if len(
+                                        			tkeywords_list) > 0 else tkl_ids
+                	except BaseException:
+                        	tb = traceback.format_exc()
+                        	logger.error(tb)
 
         tkeywords_form = TKeywordForm(
             prefix="tkeywords",
             initial={'tkeywords': tkeywords_list})
-
+        #logger.error("POST")
+        #logger.error(tkeywords_list)
     if request.method == "POST" and layer_form.is_valid() and attribute_form.is_valid(
     ) and category_form.is_valid() and tkeywords_form.is_valid():
         new_poc = layer_form.cleaned_data['poc']
@@ -1012,6 +1015,11 @@ def layer_metadata(
             layer.keywords.clear()
             layer.keywords.add(*new_keywords)
 
+        
+        
+        
+        
+
         new_regions = [x.strip() for x in layer_form.cleaned_data['regions']]
         if new_regions is not None:
             layer.regions.clear()
@@ -1059,25 +1067,30 @@ def layer_metadata(
                     try:
                         cleaned_data = [value for key, value in tkeywords_cleaned[i].items(
                         ) if 'tkeywords-tkeywords' in key.lower() and 'autocomplete' not in key.lower()]
+                        #) if 'tkeywords' in key.lower() and 'autocomplete' not in key.lower()]
                         tkeywords_ids.extend(map(int, cleaned_data[0]))
                     except BaseException:
                         pass
 
-                if hasattr(settings, 'THESAURI'):
-                    for el in settings.THESAURI:
-                        thesaurus_name = el['name']
-                        try:
+                if hasattr(settings, 'THESAURI') and settings.THESAURI:
+                      #el = settings.THESAURI
+		      for el in settings.THESAURI:
+                      	thesaurus_name = el['name']
+                      	try:
                             t = Thesaurus.objects.get(
                                 identifier=thesaurus_name)
                             for tk in t.thesaurus.all():
                                 tkl = tk.keyword.filter(pk__in=tkeywords_ids)
                                 if len(tkl) > 0:
                                     tkeywords_to_add.append(tkl[0].keyword_id)
-                        except BaseException:
+                      	except BaseException:
                             tb = traceback.format_exc()
                             logger.error(tb)
 
             layer.tkeywords.add(*tkeywords_to_add)
+            #logger.error("POSTVALID")
+            #logger.error(tkeywords_to_add)
+            #register_event(request, 'change_metadata', layer)
         except BaseException:
             tb = traceback.format_exc()
             logger.error(tb)

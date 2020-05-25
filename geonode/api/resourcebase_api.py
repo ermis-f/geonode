@@ -444,7 +444,7 @@ class CommonModelApi(ModelResource):
                 "-popular_count")
         else:
             sqs = (
-                SearchQuerySet() if sqs is None else sqs).order_by("-date")
+                SearchQuerySet() if sqs is None else sqs).order_by("title")
 
         return sqs
 
@@ -656,7 +656,7 @@ class ResourceBaseResource(CommonModelApi):
     class Meta(CommonMetaApi):
         paginator_class = CrossSiteXHRPaginator
         queryset = ResourceBase.objects.polymorphic_queryset() \
-            .distinct().order_by('-date')
+            .distinct().order_by('title')
         resource_name = 'base'
         excludes = ['csw_anytext', 'metadata_xml']
         authentication = MultiAuthentication(SessionAuthentication(), GeonodeApiKeyAuthentication())
@@ -668,7 +668,7 @@ class FeaturedResourceBaseResource(CommonModelApi):
 
     class Meta(CommonMetaApi):
         paginator_class = CrossSiteXHRPaginator
-        queryset = ResourceBase.objects.filter(featured=True).order_by('-date')
+        queryset = ResourceBase.objects.filter(featured=True).order_by('title')
         resource_name = 'featured'
         authentication = MultiAuthentication(SessionAuthentication(), GeonodeApiKeyAuthentication())
 
@@ -871,7 +871,7 @@ class LayerResource(CommonModelApi):
 
     class Meta(CommonMetaApi):
         paginator_class = CrossSiteXHRPaginator
-        queryset = Layer.objects.distinct().order_by('-date')
+        queryset = Layer.objects.distinct().order_by('title')
         resource_name = 'layers'
         detail_uri_name = 'id'
         include_resource_uri = True
@@ -949,7 +949,7 @@ class MapResource(CommonModelApi):
 
     class Meta(CommonMetaApi):
         paginator_class = CrossSiteXHRPaginator
-        queryset = Map.objects.distinct().order_by('-date')
+        queryset = Map.objects.distinct().order_by('title')
         resource_name = 'maps'
         authentication = MultiAuthentication(SessionAuthentication(), GeonodeApiKeyAuthentication())
 
@@ -996,6 +996,6 @@ class DocumentResource(CommonModelApi):
         paginator_class = CrossSiteXHRPaginator
         filtering = CommonMetaApi.filtering
         filtering.update({'doc_type': ALL})
-        queryset = Document.objects.distinct().order_by('-date')
+        queryset = Document.objects.distinct().order_by('title')
         resource_name = 'documents'
         authentication = MultiAuthentication(SessionAuthentication(), GeonodeApiKeyAuthentication())

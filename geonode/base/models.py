@@ -49,6 +49,7 @@ from django.core.files.storage import default_storage as storage
 from django.core.files.base import ContentFile
 from django.contrib.gis.geos import GEOSGeometry
 from django.utils.timezone import now
+from django.utils.html import escape
 
 from mptt.models import MPTTModel, TreeForeignKey
 
@@ -381,7 +382,9 @@ class _HierarchicalTagManager(_TaggableManager):
             for t in tags
             if not isinstance(t, self.through.tag_model())
         ])
+        logger.error(str_tags)
         tag_objs = set(tags) - str_tags
+        logger.error(tag_objs)
         # If str_tags has 0 elements Django actually optimizes that to not do a
         # query.  Malcolm is very smart.
         existing = self.through.tag_model().objects.filter(
@@ -390,6 +393,7 @@ class _HierarchicalTagManager(_TaggableManager):
         tag_objs.update(existing)
         for new_tag in str_tags - set(t.name for t in existing):
             if new_tag:
+                new_tag=escape(new_tag)
                 tag_objs.add(HierarchicalKeyword.add_root(name=new_tag))
 
         for tag in tag_objs:
@@ -427,30 +431,6 @@ class Thesaurus(models.Model):
         verbose_name_plural = 'Thesauri'
 
 
-class ThesaurusKeyword(models.Model):
-    """
-    Loadable thesaurus containing keywords in different languages
-    """
-    # read from the RDF file
-    about = models.CharField(max_length=255, null=True, blank=True)
-    # read from the RDF file
-    alt_label = models.CharField(
-        max_length=255,
-        default='',
-        null=True,
-        blank=True)
-
-    thesaurus = models.ForeignKey('Thesaurus', related_name='thesaurus')
-
-    def __unicode__(self):
-        return u"{0}".format(self.alt_label)
-
-    class Meta:
-        ordering = ("alt_label",)
-        verbose_name_plural = 'Thesaurus Keywords'
-        unique_together = (("thesaurus", "alt_label"),)
-
-
 class ThesaurusKeywordLabel(models.Model):
     """
     Loadable thesaurus containing keywords in different languages
@@ -471,6 +451,57 @@ class ThesaurusKeywordLabel(models.Model):
         ordering = ("keyword", "lang")
         verbose_name_plural = 'Labels'
         unique_together = (("keyword", "lang"),)
+
+
+
+class ThesaurusKeyword(models.Model):
+    """
+    Loadable thesaurus containing keywords in different languages
+    """
+    # read from the RDF file
+    about = models.CharField(max_length=255, null=True, blank=True)
+    # read from the RDF file
+    alt_label = models.CharField(
+        max_length=255,
+        default='',
+        null=True,
+        blank=True)
+
+    thesaurus = models.ForeignKey('Thesaurus', related_name='thesaurus')
+
+    def __unicode__(self):
+        return u"{0}".format(self.alt_label)
+
+    @property
+    def labels(self):
+	return ThesaurusKeywordLabel.objects.filter(keyword=self)
+
+    class Meta:
+        ordering = ("alt_label",)
+        verbose_name_plural = 'Thesaurus Keywords'
+        unique_together = (("thesaurus", "alt_label"),)
+
+
+#class ThesaurusKeywordLabel(models.Model):
+#    """
+#    Loadable thesaurus containing keywords in different languages
+#    """
+
+    # read from the RDF file
+#    lang = models.CharField(max_length=3)
+    # read from the RDF file
+#    label = models.CharField(max_length=255)
+#    note  = models.CharField(max_length=511)
+
+#    keyword = models.ForeignKey('ThesaurusKeyword', related_name='keyword')
+
+#    def __unicode__(self):
+#        return u"{0}".format(self.label)
+
+#    class Meta:
+#        ordering = ("keyword", "lang")
+#        verbose_name_plural = 'Labels'
+#        unique_together = (("keyword", "lang"),)
 
 
 class ResourceBaseManager(PolymorphicManager):
@@ -558,7 +589,7 @@ class ResourceBase(PolymorphicModel, PermissionLevelMixin, ItemBase):
         _('date type'),
         max_length=255,
         choices=VALID_DATE_TYPES,
-        default='publication',
+        default=_('publication'),
         help_text=date_type_help_text)
     edition = models.CharField(
         _('edition'),
@@ -659,6 +690,8 @@ class ResourceBase(PolymorphicModel, PermissionLevelMixin, ItemBase):
     supplemental_information = models.TextField(
         _('supplemental information'),
         max_length=2000,
+        blank=True,
+        null=True,
         default=DEFAULT_SUPPLEMENTAL_INFORMATION,
         help_text=_('any other descriptive information about the dataset'))
 
@@ -883,6 +916,8 @@ class ResourceBase(PolymorphicModel, PermissionLevelMixin, ItemBase):
             'license',
             'regions',
             'title']
+        
+        
         if self.restriction_code_type == 'otherRestrictions':
             required_fields.append('constraints_other')
         filled_fields = []
@@ -1192,7 +1227,7 @@ class ResourceBase(PolymorphicModel, PermissionLevelMixin, ItemBase):
 
     def language_title(self):
         return [v for i, v in enumerate(
-            ALL_LANGUAGES) if v[0] == self.language][0][1].title()
+            ERMIS_LANGUAGES) if v[0] == self.language][0][1].title()
 
     def _set_poc(self, poc):
         # reset any poc assignation to this resource

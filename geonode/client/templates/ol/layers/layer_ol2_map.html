@@ -23,9 +23,9 @@
     source = null;
     {% if resource.ptype == 'gxp_wmscsource' %}
     {% if 'access_token' in request.session %}
-    var url = '{{ resource.ows_url|safe }}?access_token={{request.session.access_token}}'
+    var url = '{{ resource.ows_url|safe }}?access_token={{request.session.access_token}}';
     {% else %}
-    var url = '{{ resource.ows_url|safe }}'
+    var url = '{{ resource.ows_url|safe }}';
     {% endif %}
     source = new OpenLayers.Layer.WMS("{{ resource.title|safe }}",
     	url,

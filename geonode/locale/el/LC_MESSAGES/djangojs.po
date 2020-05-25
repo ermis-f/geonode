@@ -42,6 +42,9 @@ msgstr ""
 msgid "Enter your text here ..."
 msgstr "Εισάγετε το κείμενο εδώ ..."
 
+msgid "<p class='xxs-font-size mandatory-warning'>&nbsp;&nbsp;&nbsp;<strong>* Field declared Mandatory by the Metadata Schema</strong></p>"
+msgstr "<p class='xxs-font-size mandatory-warning'>&nbsp;&nbsp;&nbsp;<strong>* Το πεδίο είναι υποχρεωτικό</strong></p>"
+
 #: geonode/static/geonode/js/search/search.js:414
 msgid "Enter your region here ..."
 msgstr "Εισάγετε την τοποθεσίας σας εδώ ..."

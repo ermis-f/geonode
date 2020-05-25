@@ -35,14 +35,16 @@ from geonode.documents.models import Document
 from geonode.groups.models import GroupProfile
 from geonode.base.models import HierarchicalKeyword
 from geonode.security.utils import get_visible_resources
+from django.utils.translation import ugettext_lazy as _
+
 
 register = template.Library()
 
 FACETS = {
-    'raster': 'Raster Layer',
-    'vector': 'Vector Layer',
+    'raster': _('Raster Layers'),
+    'vector': _('Vector Layers'),
     'vector_time': 'Vector Temporal Serie',
-    'remote': 'Remote Layer',
+    'remote': _('Remote Layers'),
     'wms': 'WMS Cascade Layer'
 }
 

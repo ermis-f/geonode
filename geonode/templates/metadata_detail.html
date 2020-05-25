@@ -67,13 +67,28 @@
         </dd>
 
 
-        {% if resource.date %}
+        <!--{% if resource.date %}
         <dt>{% trans resource.date_type|title %} {% trans "Date" %}</dt>
         <dd>{{ resource.date }}</dd>
-        {% endif %}
+        {% endif %}-->
+       
+         {% if resource.date %}
+          {% if resource.date_type == 'creation' %}
+        <dt>{% trans "Creation Date" %}</dt>
+        <dd>{{ resource.date }}</dd>
+      {% elif resource.date_type == 'publication' %}
+         <dt>{% trans "Publication Date" %}</dt>
+         <dd >{{ resource.date }}</dd>
+      {% else %}
+        <dt>{% trans "Revision Date" %}</dt>
+        <dd>{{ resource.date }}</dd>
+      {% endif %}
+    {% endif %}
+
+
 
         {% if resource.display_type %}
-        <dt>{% trans "Type" %}</dt>
+        <dt>{% trans "File Format" %}</dt>
         <dd>{{ resource.display_type }}</dd>
         {% endif %}
 
@@ -83,6 +98,21 @@
             {{ keyword }}
             {% endfor %}</dd>
         {% endif %}
+
+          {% if resource.tkeywords.count > 0 %}
+             <dt>{%trans "INSPIRE Themes"%}</dt>
+             <dd itemprop="tkeywords">
+             {% get_current_language as LANGUAGE_CODE %}
+                {% for keyword in resource.tkeywords.all %}  
+                   {% for label in keyword.labels %}
+                  {% if label.lang == LANGUAGE_CODE %}
+                 {{ label }}
+                  {% endif %}
+                   
+                  {% endfor %}
+                 {% endfor %}
+        </dd>
+       {% endif %}
 
         {% if resource.category %}
         <dt>{% trans "Topic Category" %}</dt>

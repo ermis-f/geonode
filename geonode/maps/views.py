@@ -534,7 +534,7 @@ def map_view(request, mapid, snapshot=None, layer_name=None,
     if layer_name:
         config = add_layers_to_map_config(
             request, map_obj, (layer_name, ), False)
-
+     
     return render(request, template, context={
         'config': json.dumps(config),
         'map': map_obj,

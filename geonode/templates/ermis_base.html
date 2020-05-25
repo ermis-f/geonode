@@ -1,9 +1,11 @@
-<!DOCTYPE html>
 {% load i18n %}
 {% load staticfiles %}
 {% get_current_language as LANGUAGE_CODE %}
-
-<html  lang="{{ LANGUAGE_CODE }}">
+{% load avatar_tags %}
+{% load static from staticfiles %}
+{% load account socialaccount %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
 
 <head>
     <title>{% block ermis_title %}ERMIS-F{% endblock ermis_title %}</title>
@@ -12,6 +14,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="ERMIS-F application">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+   <!--<meta http-equiv="Content-Security-Policy" content="*">-->
+<!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
+     <meta name="referrer" content="no-referrer-when-downgrade">
     <link rel="shortcut icon" href="{% static "img/Ermis_ico32x32.png" %}" type="image/x-icon">
 
 {% block ermis_styles %} {% endblock ermis_styles %}
@@ -70,7 +75,7 @@
                                 {% block ermis_apps %}
                                 <li class="menu-item-has-children dropdown"><a href="https://kb.ermis-f.eu/" class="js-activated btn btn-highlight" ><i class="icon-streamline-school-graduation"></i>{% trans "Knowledge Base" %}<span class="caret"></span></a>
                                     <ul role="menu" class="dropdown-menu sub-menu pull-left">
-                                        <li><a href="https://geoportal.ermis-f.eu/" ><i class="icon-streamline-group-global"></i>{% trans "GIS Portal" %}</a></li>
+                                        <li><a href="https://geoportal.ermis-f.eu/" ><i class="icon-streamline-group-global"></i>{% trans "Geoportal" %}</a></li>
                                         <li><a href="https://geoportal.ermis-f.eu/static_maps/cyprus.html" ><i class="icon-streamline-filter-picture"></i>{% trans "Flood Maps" %}</a></li>
                                         <li><a href="https://cr.ermis-f.eu/" ><i class="icon-streamline-compatible-devices"></i>{% trans "Crowdsourcing" %}</a></li>
                                         <li><a href="https://sm.ermis-f.eu/" ><i class="icon-streamline-friends"></i>{% trans "Social Media" %}</a></li>
@@ -98,6 +103,9 @@
                                 <li class="menu-item-has-children dropdown"><a href="#" class="js-activated" >{% trans "Info" %} <span class="caret"></span></a>
                                     <ul role="menu" class="dropdown-menu sub-menu pull-left">
                                         <li><a href="{% block ermis_info_app_about_href %}#{% endblock ermis_info_app_about_href %}" >{% trans "About" %}</a></li>
+                                        <li><a href="/static/user_manual.pdf" target="new">{% trans "User Manual" %}</a></li>
+
+                                        <li><a href="/static/metadata_manual_el.pdf" target="new">{% trans "Metadata Manual" %}</a></li>
                                         <li><a href="{% block ermis_info_glossary_href %}
                                            
  					{% if "el" == LANGUAGE_CODE %}
@@ -110,10 +118,10 @@
                                     </ul>
                                 </li>
                                 {% if user.is_authenticated %}
-                                <li class="menu-item-has-children dropdown"><a href="#" class="js-activated" > {% trans "Admin" %} <span class="caret"></span></a>
+                                <li class="menu-item-has-children dropdown"><a href="#" class="js-activated" > {{ request.user.username }} <span class="caret"></span></a>
                                     <ul role="menu" class="dropdown-menu sub-menu pull-left">
                                       {% block ermis_admin %} {% endblock ermis_admin %}
-                                      <li><a class="text-warning dropdown-item display-4" href="/account/logout">{% trans "Sign out" %} {{ request.user.first_name }}</a></li>
+                                      <li><a class="text-warning dropdown-item display-4" href="/account/logout">{% trans "Sign out" %}</a></li>
                                     </ul>
                                 </li>
                                 {% else %}
@@ -253,10 +261,10 @@
 
 
 <script src="{% static "lib/js/jquery.min.js" %}?v={{ VERSION }}"></script>
- <!-- <script src="{% static "js/jquery.min.js" %}"></script>-->
+<!--  <script src="{% static "js/jquery.min.js" %}"></script>
   <script src="{% static "lib/js/bootstrap.min.js" %}?v={{ VERSION }}"></script>
 
-   <script src="{% static "js/bootstrap.min.js" %}"></script>
+   <script src="{% static "js/bootstrap.min.js" %}"></script>-->
     <script>
         /* <![CDATA[ */
         var kleoFramework = {

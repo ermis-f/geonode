@@ -1,21 +1,32 @@
-{% extends "geonode_base.html" %}
+{% extends "site_base.html" %}
 
 {% load i18n %}
-{% block title %} {% trans "About GeoNode" %} — {{ block.super }} {% endblock %}
+{% block ermis_title %} {% trans "About GeoNode" %} — {{ block.super }} {% endblock %}
 
-{% block body_outer %}
-<div class="page-header">
-  <h2>{% trans "About GeoNode" %}</h2>
+{% block ermis_content %}
+<div style="padding:60px;">
+<h2 class="text-center">{% trans "ERMIS-F Geoportal" %}</h2>
+<br/>
+<div class="container">
+<div class="row">
+　　{% trans "Αποτελεί το αποθετήριο των γεω-χωρικών δεδομένων και διαθέτει σύστημα webGIS για χαρτογραφική πλοήγηση και επεξεργασία. Αναλυτικά παρέχει τις παρακάτω λειτουργίες:" %}
 </div>
-<p class="lead">{% trans "About GeoNode." %}</p>
-<p>
-　　{% trans "GeoNode is a geospatial content management system, a platform for the management and publication of geospatial data. It brings together mature and stable open-source software projects under a consistent and easy-to-use interface allowing non-specialized users to share data and create interactive maps." %}
-</p>
-<p>
-　　{% trans "Data management tools built into GeoNode allow for integrated creation of data, metadata, and map visualizations. Each dataset in the system can be shared publicly or restricted to allow access to only specific users. Social features like user profiles and commenting and rating systems allow for the development of communities around each platform to facilitate the use, management, and quality control of the data the GeoNode instance contains." %}
-</p>
-<p>
-　　{% trans "It is also designed to be a flexible platform that software developers can extend, modify or integrate against to meet requirements in their own applications." %}
-</p>
+<br/>
+<ul><li>
+　　{% trans "Ανέβασμα (upload) θεματικών επιπέδων (layers) που σχετίζονται με τον πλημμυρικό κίνδυνο (π.χ. ιστορικές πλημμύρες, κάλυψη γης, ψηφιακό μοντέλο εδάφους, υδρογραφικό δίκτυο, μετεωρολογικά/κλιματικά δεδομένα κλπ).  Προσθήκη μεταδεδομένων (βασισμένων σε διεθνή πρότυπα) και ρυθμίσεων χαρτογραφικής απεικόνισης." %}
+</li>
 
+<li>
+　　{% trans "Δημιουργία χαρτογραφικών συνθέσεων (χαρτών/maps) με συνδυασμό (υπέρθεση / overlay) θεματικών επιπέδων, όπως χάρτες επικινδυνότητας, ζωνών κινδύνου, οικιστικής ανάπτυξης κλπ. Προσθήκη μεταδεδομένων (βασισμένων σε διεθνή πρότυπα) και ρυθμίσεων χαρτογραφικής απεικόνισης." %}
+</li>
+<li>
+　　{% trans "Εύρεση θεματικών επιπέδων και χαρτών βάσει κριτηρίων (λεκτικών ή/και γεωγραφικών)." %}
+</li>
+<li>
+　　{% trans "Απεικόνιση, χαρτογραφική πλοήγηση και επεξεργασία θεματικών επιπέδων και χαρτών. Παρέχονται δυνατότητες μεταφόρτωσης (download) και εκτυπώσεων." %}
+</li>
+</ul>
+
+</div>
+</div>
 {% endblock %}

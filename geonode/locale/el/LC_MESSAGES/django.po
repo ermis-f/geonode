@@ -50,6 +50,44 @@ msgstr ""
 #msgid "No information provided"
 #msgstr "Δεν έχουν εισαχθεί πληροφορίες
 
+msgid "User Manual"
+msgstr "Εγχειρίδιο Χρήστη"
+
+
+msgid "Global"
+msgstr ""
+
+msgid "Metadata Manual"
+msgstr "Οδηγός Μεταδεδομένων"
+
+
+msgid "Creation Date"
+msgstr "Ημερομηνία Δημιουργίας"
+
+msgid "Publication Date"
+msgstr "Ημερομηνία Δημοσίευσης"
+
+msgid "Revision Date"
+msgstr "Ημερομηνία Αναθεώρησης"
+
+msgid "'All fields declared mandatory by the schema are completed, you can continue editing the optional fields or click on Done to save your changes and close this page.'"
+msgstr "'Όλα τα υποχρεωτικά πεδία έχουν συμπληρωθεί, μπορείτε να συνεχίσετε με τα προαιρετικά πεδία ή να κάνετε κλικ στο κουμπί Έγινε για να αποθηκεύσετε τις αλλαγές και να κλείσετε αυτή τη σελίδα'"
+
+msgid "Got it"
+msgstr "Το κατάλαβα"
+
+msgid "Done!"
+msgstr "Έγινε!"
+
+msgid "No matches found"
+msgstr "Δεν βρέθηκαν αποτελέσματα"
+
+msgid "Metadata Schema mandatory fields completed"
+msgstr "Τα υποχρεωτικά πεδία είναι συμπληρωμένα"
+
+msgid "INSPIRE Themes"
+msgstr "Θέματα INSPIRE"
+
 msgid "Sign out"
 msgstr "Αποσύνδεση"
 
@@ -64,11 +102,11 @@ msgstr "Κρήτη"
 
 #: ermisAuth/settings.py:284
 msgid "English"
-msgstr ""
+msgstr "Αγγλικά"
 
 #: ermisAuth/settings.py:285
 msgid "Greek"
-msgstr ""
+msgstr "Ελληνικά"
 
 #: templates/base.html:14 templates/ermis_base.html:68
 #: templates/ermis_base2.html:62
@@ -77,7 +115,7 @@ msgstr ""
 
 #: templates/base.html:16 templates/ermis_base.html:64
 #: templates/ermis_base2.html:64
-msgid "GIS Portal"
+msgid "Geoportal"
 msgstr "Γεωπύλη"
 
 #: templates/base.html:17 templates/ermis_base.html:65
@@ -85,12 +123,19 @@ msgstr "Γεωπύλη"
 msgid "Flood Maps"
 msgstr "Πλημμυρικοί Χάρτες"
 
+msgid "Publication"
+msgstr "Δημοσίευση"
 
+msgid "Revision"
+msgstr "Αναθεώρηση"
+
+msgid "Creation"
+msgstr "Δημιουργία"
 
 #: templates/base.html:19 templates/ermis_base.html:66
 #: templates/ermis_base2.html:67
 msgid "Crowdsourcing"
-msgstr "Εφαρμογή Πληθοπορισμού"
+msgstr "Πληθοπορισμός"
 
 #: templates/base.html:20 templates/ermis_base.html:67
 #: templates/ermis_base2.html:68
@@ -132,7 +177,7 @@ msgstr ""
 
 
 msgid "Topic Categories"
-msgstr "θεματικές Κατηγορίες"
+msgstr "Θεματικές Κατηγορίες"
 
 
 msgid "Thematic Category"
@@ -871,6 +916,9 @@ msgstr "Σύνοψη"
 #: geonode/templates/metadata_detail.html:76
 msgid "Type"
 msgstr "Τύπος"
+
+msgid "File Format"
+msgstr "Τύπος Αρχείου"
 
 #: geonode/base/templates/base/_resourcebase_info_panel.html:50
 #: geonode/catalogue/templates/geonode_metadata_full.html:141

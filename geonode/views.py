@@ -167,6 +167,10 @@ def crete(request):
 def vaigaio(request):
     return render(request,'static_maps/vaigaio.html')
 
+def sabout(request):
+    return render(request,'static_maps/about.html')
+
+
 def pdf(request):
     return render(request,'static_maps/pdf.html')
 

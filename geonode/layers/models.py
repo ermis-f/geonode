@@ -164,9 +164,9 @@ class Layer(ResourceBase):
     @property
     def display_type(self):
         return ({
-            "dataStore": "Vector Data",
-            "coverageStore": "Raster Data",
-        }).get(self.storeType, "Data")
+            "dataStore": _("Vector Data"),
+            "coverageStore": _("Raster Data"),
+        }).get(self.storeType, _("Data"))
 
     @property
     def data_model(self):

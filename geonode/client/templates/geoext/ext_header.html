@@ -4,6 +4,14 @@
 <script type="text/javascript" src="{% static "geoexplorer/externals/ext/ext-all.js" %}?v={{ VERSION }}"></script>
 
 <script type="text/javascript">
-  Ext.Ajax.defaultHeaders = { 'X-CSRFToken': '{{ csrf_token|escapejs }}' };
+ // Ext.Ajax.defaultHeaders = { 'X-Frame-Options': 'SAMEORIGIN' };
+ // Ext.Ajax.defaultHeaders = { 'X-CSRFToken': '{{ csrf_token|escapejs }}' };
+  Ext.Ajax.defaultHeaders = { 'Accept': '*/*' };
+
+  //Ext.Ajax.defaultHeaders = { 'Access-Control-Allow-Origin': '*' };
+  //Ext.Ajax.defaultHeaders = { 'Access-Control-Allow-Credentials': 'trues' };
+  //Ext.Ajax.defaultHeaders = { 'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS, POST, PUT' };
+  //Ext.Ajax.defaultHeaders = { 'Access-Control-Allow-Headers': 'Origin, Accept, Content-Type, X-Requested-With' };
+
   Ext.BLANK_IMAGE_URL = "{% static "geoexplorer/externals/ext/resources/images/default/s.gif" %}";
 </script>

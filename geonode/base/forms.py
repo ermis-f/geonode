@@ -18,12 +18,12 @@
 #
 #########################################################################
 
-from fields import MultiThesauriField
+from .fields import MultiThesauriField
 from widgets import MultiThesauriWidget
 
 from autocomplete_light.widgets import ChoiceWidget
 from autocomplete_light.contrib.taggit_field import TaggitField, TaggitWidget
-
+from django.forms.widgets import Select, SelectMultiple
 from django import forms
 from django.core import validators
 from django.forms import models
@@ -32,10 +32,11 @@ from django.forms.utils import flatatt
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
+
 from django.db.models import Q
 
 from django.utils.encoding import (
-    force_text,
+    force_text,force_str,smart_str,
 )
 
 from bootstrap3_datetime.widgets import DateTimePicker
@@ -47,18 +48,29 @@ from geonode.base.enumerations import ALL_LANGUAGES
 from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model
 
+import logging
+import traceback
+
+logger = logging.getLogger(__name__)
+
 
 def get_tree_data():
     def rectree(parent, path):
         children_list_of_tuples = list()
         c = Region.objects.filter(parent=parent)
+        #logger.error(Request.session.get(LANGUAGE_SESSION_KEY))
+        #logger.error(get_current_language())
+        #logger.error(LANGUAGE_SESSION_KEY)
         for child in c:
+            
             children_list_of_tuples.append(
-                tuple((path + parent.name, tuple((child.id, child.name))))
-            )
+               	tuple((path + parent.name, tuple((child.id, child.name))))
+          	)
             childrens = rectree(child, parent.name + '/')
+
             if childrens:
                 children_list_of_tuples.extend(childrens)
+           
 
         return children_list_of_tuples
 
@@ -76,7 +88,7 @@ def get_tree_data():
                 )
     except BaseException:
         pass
-
+    #logger.error(data) 
     return tuple(data)
 
 
@@ -112,7 +124,11 @@ class TreeWidget(TaggitWidget):
         if isinstance(value, basestring):
             vals = value
         elif value:
-            vals = ','.join([str(i.tag.name) for i in value])
+           # vals = ','.join([str(i.tag.name) for i in value])
+           
+            vals = ','.join([i.tag.name for i in value])
+ 
+           
         else:
             vals = ""
         output = ["""<div class="keywords-container"><span class="input-group">
@@ -152,7 +168,12 @@ class RegionsSelect(forms.Select):
             format_html(
                 '<select multiple="multiple"{}>',
                 flatatt(final_attrs))]
+        
+        #logger.error("Render")
+        #logger.error(value)
+        #logger.error(final_attrs)
         options = self.render_options(value)
+        #logger.error(options)
         if options:
             output.append(options)
         output.append('</select>')
@@ -181,9 +202,9 @@ class RegionsSelect(forms.Select):
                 selected_choices.remove(option_value)
         else:
             selected_html = ''
-
-        label = force_text(option_label)
-
+        option_label=force_str(option_label)
+        label = force_str(option_label)
+        #label=option_label.decode('utf-8')
         if data_section is None:
             data_section = ''
         else:
@@ -192,10 +213,10 @@ class RegionsSelect(forms.Select):
                 label = format_html(
                     '{} [{}]', label, data_section.rsplit(
                         '/', 1)[1])
-
+        
         return format_html(
             '<option data-section="{}" value="{}"{}>{}</option>',
-            data_section,
+            force_str(data_section),
             option_value,
             selected_html,
             label)
@@ -208,14 +229,16 @@ class RegionsSelect(forms.Select):
             else:
                 return choice.id
 
-        selected_choices = set(force_text(_region_id_from_choice(v)) for v in selected_choices)
+        selected_choices = set(force_str(_region_id_from_choice(v)) for v in selected_choices)
         output = []
-
-        output.append(format_html('<optgroup label="{}">', 'Global'))
+        #logger.error("RenderOption")
+        #logger.error(selected_choices)
+        output.append(format_html('<optgroup label="{}">', _('Global')))
         for option_value, option_label in self.choices:
             if not isinstance(
                     option_label, (list, tuple)) and isinstance(
                     option_label, basestring):
+                #logger.error(option_label)
                 output.append(
                     self.render_option_value(
                         selected_choices,
@@ -230,7 +253,7 @@ class RegionsSelect(forms.Select):
                 output.append(
                     format_html(
                         '<optgroup label="{}">',
-                        force_text(option_value)))
+                        force_str(option_value)))
                 for option in option_label:
                     if isinstance(
                             option, (list, tuple)) and not isinstance(
@@ -243,21 +266,21 @@ class RegionsSelect(forms.Select):
                                     self.render_option_value(
                                         selected_choices,
                                         *option_child,
-                                        data_section=force_text(
+                                        data_section=force_str(
                                             option[1][0][0])))
                         else:
                             output.append(
                                 self.render_option_value(
                                     selected_choices,
                                     *option[1],
-                                    data_section=force_text(
+                                    data_section=force_str(
                                         option[0])))
                     else:
                         output.append(
                             self.render_option_value(
                                 selected_choices,
                                 *option,
-                                data_section=force_text(option_value)))
+                                data_section=force_str(option_value)))
                 output.append('</optgroup>')
 
         return '\n'.join(output)
@@ -286,19 +309,32 @@ class CategoryForm(forms.Form):
 
 class TKeywordForm(forms.Form):
     tkeywords = MultiThesauriField(
-        label=_("Keywords from Thesauri"),
+        label=_(''),
         required=False,
         help_text=_("List of keywords from Thesauri"),
-        widget=MultiThesauriWidget())
+        widget=SelectMultiple)
+
+    #def __init__(self, *args, **kwargs):
+ #	super(TKeywordForm, self).__init__(*args, **kwargs)
+  #      initial_arguments = kwargs.get('initial', None)
+   #     self.data = initial_arguments
 
     def clean(self):
         cleaned_data = None
         if self.data:
             try:
+                #logger.error("KEYWORDFORM")
+                #logger.error(self.data)
                 cleaned_data = [{key: self.data.getlist(key)} for key, value in self.data.items(
                 ) if 'tkeywords-tkeywords' in key.lower() and 'autocomplete' not in key.lower()]
+                #cleaned_data = [{key: self.data.get(key)} for key, value in self.data.items(
+                #) if 'tkeywords' in key.lower() and 'autocomplete' not in key.lower()]
+                logger.error(cleaned_data)
             except BaseException:
-                pass
+                #pass
+                tb = traceback.format_exc()
+                logger.exception(tb)
+
 
         return cleaned_data
 
@@ -363,7 +399,7 @@ class ResourceBaseForm(TranslationModelForm):
         widget=ChoiceWidget('ProfileAutocomplete'))
 
     keywords = TaggitField(
-        label=_("Free-text Keywords"),
+        label="Free-text Keywords",
         required=False,
         help_text=_("A space or comma-separated list of keywords. Use the widget to select from Hierarchical tree."),
         widget=TreeWidget(
@@ -416,14 +452,23 @@ class ResourceBaseForm(TranslationModelForm):
                 else:
                     escaped += char
             return escaped
-
+        
         keywords = self.cleaned_data['keywords']
+        
         _unsescaped_kwds = []
         for k in keywords:
-            _k = urllib.unquote((u'%s' % k).encode('utf-8')).split(",")
+            #_k = urllib.unquote((u'%s' % k).encode('utf-8')).split(",")
+            _k = urllib.unquote(('%s' % k)).split(",")
+            
+            
             if not isinstance(_k, basestring):
                 for _kk in [x.strip() for x in _k]:
+                    
+                    
                     _kk = HTMLParser.HTMLParser().unescape(unicode_escape(_kk))
+                    _kk = _kk.replace('%u', r'\u').decode('unicode-escape') if '%u' in _kk else _kk
+                    
+                    
                     # _hk = HierarchicalKeyword.objects.extra(where=["%s LIKE name||'%%'"], params=[_kk])
                     _hk = HierarchicalKeyword.objects.filter(name__contains='%s' % _kk.strip())
                     if _hk and len(_hk) > 0:
@@ -431,11 +476,15 @@ class ResourceBaseForm(TranslationModelForm):
                     else:
                         _unsescaped_kwds.append(_kk)
             else:
+                
+                
+                
                 _hk = HierarchicalKeyword.objects.filter(name__iexact=_k)
                 if _hk and len(_hk) > 0:
                     _unsescaped_kwds.append(_hk[0])
                 else:
                     _unsescaped_kwds.append(_k)
+       
         return _unsescaped_kwds
 
     class Meta:

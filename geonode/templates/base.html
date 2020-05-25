@@ -111,7 +111,7 @@ class="kleo-navbar-fixed navbar-resize navbar-full-width footer-bottom {% block 
    
 
  {% block ermis_apps %}
-                                <li class="menu-item-has-children dropdown"><a href="https://geoportal.ermis-f.eu/" class="js-activated btn btn-highlight" ><i class="icon-streamline-group-global"></i>{% trans "GIS Portal" %}<span class="caret"></span></a>
+                                <li class="menu-item-has-children dropdown"><a href="https://geoportal.ermis-f.eu/" class="js-activated btn btn-highlight" ><i class="icon-streamline-group-global"></i>{% trans "Geoportal" %}<span class="caret"></span></a>
                                     <ul role="menu" class="dropdown-menu sub-menu pull-left">
                                         <li><a href="https://geoportal.ermis-f.eu/static_maps/cyprus.html" ><i class="icon-streamline-filter-picture"></i>{% trans "Flood Maps" %}</a></li>
  <li><a href="https://kb.ermis-f.eu/" ><i class="icon-streamline-school-graduation"></i>{% trans "Knowledge Base" %}</a></li>
@@ -162,7 +162,7 @@ class="kleo-navbar-fixed navbar-resize navbar-full-width footer-bottom {% block 
 
    <li><a class="text-warning dropdown-item display-4" href="{{ user.get_absolute_url }}">{% trans "Profile" %}</a></li>
    <li><a class="text-warning dropdown-item display-4" href="{% url "recent-activity" %}">{% trans "Recent Activity" %}</a></li>
-   <li><a class="text-warning dropdown-item display-4" href="{% url "messages_inbox" %}">{% trans "Inbox" %}</a></li>
+<!--   <li><a class="text-warning dropdown-item display-4" href="{% url "messages_inbox" %}">{% trans "Inbox" %}</a></li>-->
  {% if user.is_superuser  %}
    <li><a class="text-warning dropdown-item display-4" href="{% url "admin:index" %}">{% trans "Admin" %}</a></li>
    <li><a class="text-warning dropdown-item display-4" href="{% url "proxy" %}?url={{ OGC_SERVER.default.LOCATION }}">GeoServer</a></li>
@@ -174,6 +174,9 @@ class="kleo-navbar-fixed navbar-resize navbar-full-width footer-bottom {% block 
 
 {% endblock ermis_login_menu %}
 
+{% block ermis_info_app_about_href %}
+https://geoportal.ermis-f.eu/about/
+{% endblock ermis_info_app_about_href %}
 
  
         {% block ermis_content %} 
