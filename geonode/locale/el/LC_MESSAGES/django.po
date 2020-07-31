@@ -50,6 +50,79 @@ msgstr ""
 #msgid "No information provided"
 #msgstr "Δεν έχουν εισαχθεί πληροφορίες
 
+msgid "The Geoportal is the geospatial data repository of the ERMIS-F Public Information Service and it has a WebGIS system for cartographic navigation and processing. The Geoportal application offers ready-made digital maps (WebGIS) as well as geographical data related to the management of flood risks via the internet to all those involved in flood control studies and projects. Maps and geographic data can help professionals prepare better hydrological and hydraulic studies and design flood defenses with less uncertainty. They can also be used by local authorities and agencies or ordinary citizens to be informed about the risks of flooding in their area and to take them into account in the decision-making process."
+msgstr "Αποτελεί το αποθετήριο των γεω-χωρικών δεδομένων της Υπηρεσίας ERMIS-F και διαθέτει σύστημα webGIS για χαρτογραφική πλοήγηση και επεξεργασία τους. Η εφαρμογή της γεωπύλης προσφέρει έτοιμους ψηφιακούς χάρτες (webGIS) αλλά και γεωγραφικά δεδομένα που έχουν σχέση με την διαχείριση κινδύνων πλημύρας μέσω του διαδικτύου σε όλους όσους ασχολούνται με αντιπλημμυρικές μελέτες και έργα. Οι χάρτες και τα γεωγραφικά δεδομένα μπορούν να βοηθήσουν τους επαγγελματίες στην ετοιμασία καλύτερων υδρολογικών και υδραυλικών μελετών και να σχεδιάσουν με μικρότερη αβεβαιότητα αντιπλημμυρικά έργα. Μπορούν να χρησιμοποιηθούν και από τοπικές αρχές και φορείς ή και απλούς πολίτες ώστε να ενημερωθούν για τους κινδύνους πλημμύρας στην περιοχή τους και να τους λάβουν υπόψη στη διαδικασία λήψης αποφάσεων."
+
+msgid "In detail, the Geoportal offers the following functions:"
+msgstr "Αναλυτικά παρέχει τις παρακάτω λειτουργίες:"
+
+msgid "Simple and advanced search for thematic layers and maps."
+msgstr "Απλή και σύνθετη αναζήτηση θεματικών επιπέδων και χαρτών."
+
+
+msgid "Visualisation, cartographic navigation and online processing of thematic layers and maps; ability to download and print thematic layers and maps."
+msgstr "Προβολή, χαρτογραφική πλοήγηση και online επεξεργασία θεματικών επιπέδων και χαρτών. Παρέχονται δυνατότητες μεταφόρτωσης (download) και εκτυπώσεων θεματικών επιπέδων και χαρτών"
+
+msgid "Ability to upload thematic layers related to flood risk (e.g. past flood events, land cover, digital terrain model, hydrographic network, meteorological/climatic data, etc.). Addition of metadata (based on international standards) and cartographic display settings."
+msgstr "Ανέβασμα (upload) θεματικών επιπέδων (layers) που σχετίζονται με τον πλημμυρικό κίνδυνο (π.χ. ιστορικές πλημμύρες, κάλυψη γης, ψηφιακό μοντέλο εδάφους, υδρογραφικό δίκτυο, μετεωρολογικά/κλιματικά δεδομένα κλπ). Προσθήκη μεταδεδομένων (βασισμένων σε διεθνή πρότυπα) και ρυθμίσεων χαρτογραφικής απεικόνισης."
+
+msgid "Creation of adapted cartographic compositions (maps) with a combination (overlay) of thematic layers, such as risk maps, danger zones, residential developments, etc."
+msgstr "Δημιουργία προσαρμοσμένων χαρτογραφικών συνθέσεων (χαρτών/maps) με συνδυασμό (υπέρθεση / overlay) θεματικών επιπέδων, όπως χάρτες επικινδυνότητας, ζωνών κινδύνου, οικιστικής ανάπτυξης κλπ."
+
+
+msgid "Search for thematic layers and maps based on criteria (lexical and/or geographical)."
+msgstr "Εύρεση θεματικών επιπέδων και χαρτών βάσει κριτηρίων (λεκτικών ή/και γεωγραφικών)."
+
+msgid "Provision of access to other ERMIS-F subsystems and applications."
+msgstr "Παροχή πρόσβασης στα υπόλοιπα υποσυστήματα και εφαρμογές της Υπηρεσίας ERMIS-F."
+
+msgid "Some of the advantages are:"
+msgstr "Μερικά από τα πλεονεκτήματα είναι:"
+
+
+msgid "It offers easy access to accumulated and localized material (maps, geographic and geospatial data, model results, land use scenarios, etc.), which is either difficult to find in another way or that are time-consuming."
+msgstr "Προσφέρει ευκολία πρόσβασης σε συσσωρευμένο και εντοπισμένο υλικό (χάρτες, γεωγραφικά και γεωχωρικά δεδομένα, αποτελέσματα μοντέλων, σενάρια χρήσεων γης, κλπ.), το οποίο είτε είναι δύσκολο να αναζητηθεί με άλλον τρόπο είτε είναι χρονοβόρο."
+
+msgid "Provides free data in an editable form (time-saving)."
+msgstr "Παρέχει ελεύθερα δεδομένα και σε επεξεργάσιμη μορφή (εξοικονόμηση χρόνου)."
+
+msgid "It can be a useful educational tool for schools and universities due to the gathering of information in one place."
+msgstr "Μπορεί να είναι ένα χρήσιμο εκπαιδευτικό εργαλείο για σχολεία και πανεπιστήμια λόγω της συγκέντρωσης πληροφοριών σε ένα σημείο."
+
+msgid "Flood maps show areas with the highest risk of flooding so they can lead to more effective prevention. At the same time and in combination with ERMIS-F’s Knowledge Base, it offers in one place a number of important information about floods, flood management projects and legislation."
+msgstr "Οι πλημμυρικοί χάρτες δείχνουν τις περιοχές με τον μεγαλύτερο κίνδυνο πλημμύρας άρα μπορούν να οδηγήσουν σε πιο αποτελεσματική πρόληψη. Παράλληλα και σε συνδυασμό με την Βάση Γνώσης της υπηρεσίας ERMIS-F προσφέρει συγκεντρωμένες σε ένα σημείο σημαντικές πληροφορίες για τις πλημμύρες, για τα αντιπλημμυρικά έργα και την νομοθεσία."
+
+
+msgid "Provides tools and mainly data for the design and study of various types of projects (urban, spatial, environmental studies)."
+msgstr "Προσφέρει εργαλεία και κυρίως στοιχεία για τον σχεδιασμό και την μελέτη διαφόρων τύπων μελετών (πολεοδομικές, χωροταξικές, περιβαλλοντικές μελέτες)."
+
+msgid "Informs residents about the danger in a specific area and allows the adoption of appropriate self-protection measures (impact cost reduction)."
+msgstr "Ενημερώνει τους κατοίκους για την επικινδυνότητα μιας περιοχής και λήψη κατάλληλων μέτρων αυτοπροστασίας (μειώνει το κόστος των επιπτώσεων)"
+
+msgid "The Flood Maps application offers ready-made digital flood risk maps for citizens. Unlike ERMIS-F’s Geoportal, which is aimed mainly at professionals or requires some experience in GIS systems, the purpose here is the ease of use by everyone. The goal is for ordinary citizens to be informed about the dangers of flooding in their area and to take them into account in their decision-making process."
+msgstr "Η εφαρμογή Πλημμυρικών Χαρτών προσφέρει έτοιμους ψηφιακούς χάρτες πλημμυρικής επικινδυνότητας για τους πολίτες. Σε αντίθεση με την Γεωπύλη του ERMIS-F που απευθύνεται κυρίως σε επαγγελματίες ή απαιτεί κάποια εμπειρία σε συστήματα GIS, ο σκοπός είναι η ευκολία της χρήσης από όλους! Στόχος είναι να μπορούν και οι απλοί πολίτες να ενημερωθούν για τους κινδύνους πλημμύρας στην περιοχή τους και να τους λάβουν υπόψη στη διαδικασία λήψης αποφάσεων."
+
+msgid "Decisions may include the use of plots of land or other real estate, flood insurance, reduced exposure to floods, for example by placing non-valuables in their basements if they are in a high-risk area, or to take protective measures at home (raising fencing, waterproof doors etc.)."
+msgstr "Oι αποφάσεις μπορεί να αφορούν την αξιοποίηση οικοπέδων ή άλλων ακινήτων, ασφάλιση έναντι πλημμύρας, μείωσης της έκθεσης στην πλημμύρα πχ να μην έχουν πολύτιμα αντικείμενα στα υπόγεια τους αν βρίσκονται σε περιοχή υψηλού κινδύνου είτε για την λήψη προστατευτικών μέτρων σε επίπεδο κατοικίας (ανύψωση περίφραξης, υδατοστεγείς θύρες κλπ)."
+
+msgid "Some of the advantages of this application are:"
+msgstr "Μερικά από τα πλεονεκτήματα είναι:"
+
+msgid "It offers easy access to ready-made flood risk maps."
+msgstr "Προσφέρει ευκολία πρόσβασης σε έτοιμους χάρτες πλημμυρικής επικινδυνότητας."
+
+msgid "It provides free data and allows printing."
+msgstr "Παρέχει ελεύθερα δεδομένα και επιτρέπει εκτυπώσεις."
+
+msgid "Flood Maps show areas with the highest risk of flooding so they can lead to more effective prevention. At the same time, and in combination with ERMIS-F’s Knowledge Base application, they offer important information about floods, flood control works and legislation."
+msgstr "Οι Πλημμυρικοί Χάρτες δείχνουν τις περιοχές με τον μεγαλύτερο κίνδυνο πλημμύρας άρα μπορούν να οδηγήσουν σε πιο αποτελεσματική πρόληψη. Παράλληλα και σε συνδυασμό με την Βάση Γνώσης της υπηρεσίας ERMIS-F προσφέρουν συγκεντρωμένες σε ένα σημείο σημαντικές πληροφορίες για τις πλημμύρες, για τα αντιπλημμυρικά έργα και την νομοθεσία."
+
+msgid "It informs the residents about the flooding risk of a specific area and about taking appropriate self-protection measures."
+msgstr "Ενημερώνει τους κατοίκους για την επικινδυνότητα μιας περιοχής και λήψη κατάλληλων μέτρων αυτοπροστασίας."
+
+msgid "ERMIS-F Flood Maps"
+msgstr "Πλημμυρικοί Χάρτες ERMIS-F"
+
 msgid "User Manual"
 msgstr "Εγχειρίδιο Χρήστη"
 
